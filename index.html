@@ -138,7 +138,7 @@
         .form-group {
             margin-bottom: 1rem;
         }
-        input, select, textarea {
+        input {
             width: 100%;
             padding: 14px 18px;
             border: 1px solid #D4E0EA;
@@ -148,11 +148,7 @@
             transition: 0.2s;
             background: #fff;
         }
-        textarea {
-            border-radius: 24px;
-            resize: vertical;
-        }
-        input:focus, select:focus, textarea:focus {
+        input:focus {
             outline: none;
             border-color: #1E6F5C;
             box-shadow: 0 0 0 3px rgba(30,111,92,0.2);
@@ -441,26 +437,21 @@
         </div>
         <div class="support-right">
             <h3><i class="fas fa-headset"></i> Request support</h3>
-            <p>Submit your query — our QuickBooks certified pros will contact you within 1 hour.</p>
+            <p>Submit your details — our QuickBooks certified pros will contact you within 1 hour.</p>
             <form id="web3form" action="https://api.web3forms.com/submit" method="POST">
-                <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+                <!-- Web3Forms access key pre-filled -->
+                <input type="hidden" name="access_key" value="bf711b15-31a1-431c-accc-1c4aec390f41">
                 <input type="hidden" name="redirect" value="false">
                 <input type="hidden" name="subject" value="QuickBooks Support Request">
-                <div class="form-group"><input type="text" name="name" placeholder="Full name" required></div>
-                <div class="form-group"><input type="tel" name="phone" placeholder="Phone number" required></div>
-                <div class="form-group"><input type="email" name="email" placeholder="Email address" required></div>
                 <div class="form-group">
-                    <select name="issue_type">
-                        <option value="">Select issue type</option>
-                        <option>Login / Account access</option>
-                        <option>Invoicing & Payments</option>
-                        <option>Payroll setup</option>
-                        <option>Tax filing error</option>
-                        <option>Data migration</option>
-                        <option>Other technical issue</option>
-                    </select>
+                    <input type="text" name="name" placeholder="Full name" required>
                 </div>
-                <div class="form-group"><textarea rows="2" name="message" placeholder="Brief description of your issue..."></textarea></div>
+                <div class="form-group">
+                    <input type="tel" name="phone" placeholder="Phone number" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Email address" required>
+                </div>
                 <button type="submit" class="btn-primary"><i class="fas fa-paper-plane"></i> Get help now →</button>
                 <div id="form-status" class="form-status"></div>
             </form>
@@ -535,31 +526,34 @@
 <div id="pageModal" class="page-modal"><div class="modal-content"><button class="close-modal">&times;</button><div id="modal-body"></div></div></div>
 
 <script>
-    // Web3Forms handler
+    // Web3Forms handler with pre-filled key
     const form = document.getElementById('web3form');
     const statusDiv = document.getElementById('form-status');
+    
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         statusDiv.innerHTML = '⏳ Submitting request...';
+        statusDiv.style.color = '#2563eb';
+        
         const formData = new FormData(form);
-        const currentKey = formData.get('access_key');
-        if (currentKey === 'bf711b15-31a1-431c-accc-1c4aec390f41') {
-            statusDiv.innerHTML = '⚠️ Please configure Web3Forms access key. Replace YOUR_ACCESS_KEY_HERE with a valid key from web3forms.com';
-            statusDiv.style.color = '#b91c1c';
-            return;
-        }
+        
         try {
-            const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
-            const result = await res.json();
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
             if (result.success) {
                 statusDiv.innerHTML = '✅ Support request sent! Our team will contact you shortly.';
                 statusDiv.style.color = '#15803d';
                 form.reset();
             } else {
                 statusDiv.innerHTML = '❌ Error: ' + (result.message || 'Please try again later.');
+                statusDiv.style.color = '#b91c1c';
             }
-        } catch (err) {
+        } catch (error) {
             statusDiv.innerHTML = '⚠️ Network error. Please refresh and retry.';
+            statusDiv.style.color = '#b91c1c';
         }
     });
 
@@ -594,22 +588,14 @@
 
     document.getElementById('about-link').onclick = (e) => { e.preventDefault(); openModal(`<h2>📘 About QuickBooks Help Center</h2><p>We are an authorized QuickBooks Solution Provider offering premium support, training, and migration services since 2015. Over 10k businesses assisted.</p><p>Our mission: empower businesses with seamless bookkeeping & instant expert help.</p>`); };
     document.getElementById('contact-link').onclick = (e) => { e.preventDefault(); openModal(`<h2>📞 Contact support team</h2><p><strong>Email:</strong> support@quickbookshelp.com</p><p><strong>Phone:</strong> +1 (888) 555-7842 (24/7)</p><p><strong>Live chat:</strong> Available on this page 24/7</p><p>📍 4400 S. Quebec St, Denver, CO</p>`); };
-    document.getElementById('privacy-link').onclick = (e) => { e.preventDefault(); openModal(`<h2>🔒 Privacy Policy</h2><p>We collect name, email, phone, and issue details to resolve your support tickets. Data is not shared with third parties. Cookies used for analytics and live chat functionality. Full GDPR compliance.</p>`); };
+    document.getElementById('privacy-link').onclick = (e) => { e.preventDefault(); openModal(`<h2>🔒 Privacy Policy</h2><p>We collect name, email, and phone to resolve your support tickets. Data is not shared with third parties. Cookies used for analytics and live chat functionality. Full GDPR compliance.</p>`); };
     document.getElementById('terms-link').onclick = (e) => { e.preventDefault(); openModal(`<h2>📜 Terms of Service</h2><p>Support services are provided on a best-effort basis. For critical issues, response times apply as per plan. You agree not to misuse the contact forms.</p><p>We reserve the right to update terms; continued use implies acceptance.</p>`); };
 
-    // Additional channel button alerts (mimic contact actions)
+    // Additional channel button alerts
     document.getElementById('phoneSupportBtn')?.addEventListener('click', () => alert("📞 Call our 24/7 helpline: +1 (888) 555-7842. We're ready to help!"));
     document.getElementById('chatSupportBtn')?.addEventListener('click', () => alert("💬 Live chat will connect you with a QuickBooks expert within seconds. Stay tuned!"));
     document.getElementById('remoteBtn')?.addEventListener('click', () => alert("🖥️ Remote session request submitted! Please fill the form above to schedule a screen share."));
     document.getElementById('webinarBtn')?.addEventListener('click', () => alert("📅 Upcoming webinar: 'Master QuickBooks Online' every Thursday. Register via support form."));
-
-    // Access key reminder
-    if(document.querySelector('input[name="access_key"]')?.value === 'YOUR_ACCESS_KEY_HERE') {
-        const reminderDiv = document.createElement('div');
-        reminderDiv.style.cssText = 'background:#FEF3C7; border-radius:40px; margin-top:12px; padding:6px; font-size:11px; text-align:center;';
-        reminderDiv.innerHTML = '⚙️ Demo mode: Replace "YOUR_ACCESS_KEY_HERE" with your Web3Forms key. <a href="https://web3forms.com" target="_blank" style="color:#1E6F5C;">Get free key →</a>';
-        document.querySelector('.support-right').appendChild(reminderDiv);
-    }
 </script>
 </body>
 </html>
