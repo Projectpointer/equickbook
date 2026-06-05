@@ -493,7 +493,7 @@
     <div class="container">
         <h2 class="section-title">❓ QuickBooks Support FAQs</h2>
         <div class="faq-grid">
-            <div class="faq-item"><div class="faq-question">How do I contact QuickBook support via phone? <span>+</span></div><div class="faq-answer">You can call our 24/7 priority line at +1 (888) 555-7842. For enterprise clients, we provide a dedicated account manager.</div></div>
+            <div class="faq-item"><div class="faq-question">How do I contact QuickBook support via phone? <span>+</span></div><div class="faq-answer"> For enterprise clients, we provide a dedicated account manager.</div></div>
             <div class="faq-item"><div class="faq-question">What are the support hours for chat & email? <span>+</span></div><div class="faq-answer">Live chat is available 24/7/365. Email support responses within 2 hours. Premium plans get 15-min response SLA.</div></div>
             <div class="faq-item"><div class="faq-question">Do you help with data migration from other software? <span>+</span></div><div class="faq-answer">Absolutely. Our migration specialists assist with moving from Xero, FreshBooks, or Excel. Free for Pro & Enterprise plans.</div></div>
             <div class="faq-item"><div class="faq-question">Is there a cost for support? <span>+</span></div><div class="faq-answer">Basic support is free for all QuickBooks subscribers. Priority support with screen sharing is included in Premium plans starting at $39/month.</div></div>
@@ -587,12 +587,12 @@
     modal.onclick = (e) => { if (e.target === modal) closeModalFunc(); };
 
     document.getElementById('about-link').onclick = (e) => { e.preventDefault(); openModal(`<h2>📘 About QuickBooks Help Center</h2><p>We are an authorized QuickBooks Solution Provider offering premium support, training, and migration services since 2015. Over 10k businesses assisted.</p><p>Our mission: empower businesses with seamless bookkeeping & instant expert help.</p>`); };
-    document.getElementById('contact-link').onclick = (e) => { e.preventDefault(); openModal(`<h2>📞 Contact support team</h2><p><strong>Email:</strong> support@quickbookshelp.com</p><p><strong>Phone:</strong> +1 (888) 555-7842 (24/7)</p><p><strong>Live chat:</strong> Available on this page 24/7</p><p>📍 4400 S. Quebec St, Denver, CO</p>`); };
+    document.getElementById('contact-link').onclick = (e) => { e.preventDefault(); openModal(`<h2>📞 Contact support team</h2><p><strong>Email:</strong> support@quickbookshelp.com</p><p><strong>Phone:</strong> </p><p><strong>Live chat:</strong> Available on this page 24/7</p><p>📍 4400 S. Quebec St, Denver, CO</p>`); };
     document.getElementById('privacy-link').onclick = (e) => { e.preventDefault(); openModal(`<h2>🔒 Privacy Policy</h2><p>We collect name, email, and phone to resolve your support tickets. Data is not shared with third parties. Cookies used for analytics and live chat functionality. Full GDPR compliance.</p>`); };
     document.getElementById('terms-link').onclick = (e) => { e.preventDefault(); openModal(`<h2>📜 Terms of Service</h2><p>Support services are provided on a best-effort basis. For critical issues, response times apply as per plan. You agree not to misuse the contact forms.</p><p>We reserve the right to update terms; continued use implies acceptance.</p>`); };
 
     // Additional channel button alerts
-    document.getElementById('phoneSupportBtn')?.addEventListener('click', () => alert("📞 Call our 24/7 helpline: +1 (888) 555-7842. We're ready to help!"));
+    document.getElementById('phoneSupportBtn')?.addEventListener('click', () => alert("📞 Call our 24/7 helpline: . We're ready to help!"));
     document.getElementById('chatSupportBtn')?.addEventListener('click', () => alert("💬 Live chat will connect you with a QuickBooks expert within seconds. Stay tuned!"));
     document.getElementById('remoteBtn')?.addEventListener('click', () => alert("🖥️ Remote session request submitted! Please fill the form above to schedule a screen share."));
     document.getElementById('webinarBtn')?.addEventListener('click', () => alert("📅 Upcoming webinar: 'Master QuickBooks Online' every Thursday. Register via support form."));
